@@ -23,7 +23,7 @@ public class GymOwnerController {
 	@Autowired
 	GymOwnerService service;
 
-	@GetMapping("/test")
+	@GetMapping("/home")
 	public ResponseEntity<String> test() {
 		return new ResponseEntity<String>("Hi there !!", new HttpHeaders(), HttpStatus.OK);
 	}
@@ -38,6 +38,7 @@ public class GymOwnerController {
 	@PostMapping("/saveOwner")
 	public ResponseEntity<GymOwner> createOrUpdateEmployee(@RequestBody GymOwner gymOwner) throws RecordNotFoundException {
 		GymOwner updated = service.createOrUpdateGymOwner(gymOwner);
+		if()
 		return new ResponseEntity<GymOwner>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
