@@ -1,5 +1,7 @@
 package com.AstroGymCMS.Controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,11 @@ public class GymOwnerController {
 	@Autowired
 	GymOwnerService service;
 
-	@GetMapping("/home")
+	@GetMapping("/hometest")
 	public ResponseEntity<String> test() {
 		return new ResponseEntity<String>("Hi there !!", new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<GymOwner> getEmployeeById(@PathVariable("id") int id) throws RecordNotFoundException {
 		GymOwner entity = service.getGymOwnerById(id);
@@ -36,9 +38,15 @@ public class GymOwnerController {
 	}
 
 	@PostMapping("/saveOwner")
-	public ResponseEntity<GymOwner> createOrUpdateEmployee(@RequestBody GymOwner gymOwner) throws RecordNotFoundException {
+	public ResponseEntity<GymOwner> createOrUpdateEmployee(@RequestBody GymOwner gymOwner)
+			throws RecordNotFoundException {
+
+		gymOwner.setOwnerStatus(true);
+		LocalDate todaydate = LocalDate.now();
+		gymOwner.setOwnerDateOfJoining(todaydate);
+
 		GymOwner updated = service.createOrUpdateGymOwner(gymOwner);
-		if()
+
 		return new ResponseEntity<GymOwner>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
